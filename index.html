@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -10,7 +11,9 @@
 *{box-sizing:border-box;margin:0;padding:0}
 :root{--bg:#fff;--surf:#f8f8f6;--surf2:#f0f0ec;--border:#e8e8e4;--border2:#d0d0ca;--text:#111110;--text2:#666660;--text3:#99998f;--yel:#f5d400;--yel-l:#fffbe6;--yel-d:#a07e00;--blk:#111110;--r:6px;--font:'DM Sans',sans-serif;--mono:'DM Mono',monospace}
 html,body{min-height:100vh;background:var(--bg);font-family:var(--font);color:var(--text)}
-#app{padding:28px 24px 56px;max-width:1320px;margin:0 auto}
+#app{padding:28px 24px 56px;max-width:1440px;margin:0 auto}
+
+/* ── TOOLBAR ── */
 .toolbar{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:22px;padding-bottom:18px;border-bottom:1px solid var(--border)}
 .tb-brand{font-family:var(--mono);font-size:10px;letter-spacing:.12em;color:var(--text3);margin-right:4px;display:flex;align-items:center;gap:7px}
 .tb-dot{width:8px;height:8px;background:var(--yel);border-radius:50%}
@@ -22,186 +25,518 @@ html,body{min-height:100vh;background:var(--bg);font-family:var(--font);color:va
 .tb-r{margin-left:auto;display:flex;gap:8px;align-items:center}
 .lkbadge{height:28px;padding:0 10px;border:.5px solid var(--border);border-radius:3px;font-family:var(--mono);font-size:10px;color:var(--text3);display:flex;align-items:center;gap:5px;user-select:none;background:var(--surf)}
 .lkbadge.u{color:var(--yel-d);border-color:var(--yel-d);background:var(--yel-l)}
-.ebtn{height:28px;padding:0 12px;border:.5px solid var(--border2);border-radius:3px;background:var(--bg);font-family:var(--mono);font-size:10px;color:var(--text2);cursor:pointer;transition:all .15s}
+.ebtn{height:28px;padding:0 12px;border:.5px solid var(--border2);border-radius:3px;background:var(--bg);font-family:var(--mono);font-size:10px;letter-spacing:.05em;color:var(--text2);cursor:pointer;transition:all .15s}
+.ebtn:hover{border-color:var(--text);color:var(--text)}
 .ebtn.on{background:var(--yel);color:var(--blk);border-color:var(--yel-d);font-weight:500}
-.logbtn{height:28px;padding:0 10px;border:.5px solid var(--border);border-radius:3px;background:none;font-family:var(--mono);font-size:10px;color:var(--text3);cursor:pointer;display:none}
+.logbtn{height:28px;padding:0 10px;border:.5px solid var(--border);border-radius:3px;background:none;font-family:var(--mono);font-size:10px;color:var(--text3);cursor:pointer;transition:all .15s;display:none}
+.logbtn:hover{color:var(--text);border-color:var(--border2)}
 .logbtn.v{display:block}
+
+/* ── VIEW TABS ── */
+.vtabs{display:flex;gap:4px;margin-bottom:24px}
+.vt{height:30px;padding:0 16px;border:.5px solid var(--border2);border-radius:3px;background:var(--bg);font-family:var(--mono);font-size:10px;letter-spacing:.06em;color:var(--text2);cursor:pointer;transition:all .15s}
+.vt:hover{border-color:var(--text);color:var(--text)}
+.vt.on{background:var(--blk);color:var(--yel);border-color:var(--blk)}
+.view-panel{display:none}
+.view-panel.active{display:block}
+
+/* ── KANBAN HEADER ── */
 .kb-hdr{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:20px}
-.kb-t{font-size:15px;font-weight:500}
+.kb-t{font-size:15px;font-weight:500;letter-spacing:.02em}
 .kb-s{font-size:11px;color:var(--text3);font-weight:300;margin-top:3px}
 .leg{display:flex;gap:14px}
 .li{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--text2)}
 .ld{width:7px;height:7px;border-radius:50%}
 .ld.p{background:var(--yel)}.ld.r{background:var(--blk)}.ld.h{background:var(--border2)}
+
+/* ── BOARD ── */
 .board{display:grid;grid-template-columns:repeat(5,1fr);gap:13px;align-items:start}
 .ch{padding:9px 11px 10px;margin-bottom:9px;border-bottom:2px solid var(--border)}
 .ch.ap{border-bottom-color:var(--yel)}.ch.ar{border-bottom-color:var(--blk)}
-.cn{font-size:9px;font-family:var(--mono);color:var(--text3);margin-bottom:3px}
+.cn{font-size:9px;font-family:var(--mono);color:var(--text3);letter-spacing:.08em;margin-bottom:3px}
 .cl{font-size:11px;font-weight:500}.cc{font-size:9px;color:var(--text3);margin-top:2px}
 .card{background:var(--bg);border:.5px solid var(--border);border-radius:var(--r);padding:11px 12px;margin-bottom:8px;transition:border-color .15s}
 .card.hid{display:none}
 .card.em{border-color:var(--yel-d);cursor:pointer}
 .card.em:hover{border-color:var(--blk);outline:1px solid var(--blk)}
-.ctag{display:inline-flex;font-size:9px;font-family:var(--mono);padding:2px 6px;border-radius:2px;margin-bottom:7px;font-weight:500}
+.ctag{display:inline-flex;font-size:9px;font-family:var(--mono);padding:2px 6px;border-radius:2px;margin-bottom:7px;letter-spacing:.05em;font-weight:500}
 .tp{background:var(--yel);color:var(--blk)}.tr{background:var(--blk);color:var(--yel)}
 .ctit{font-size:11px;font-weight:500;line-height:1.45;margin-bottom:5px}
 .cbod{font-size:10px;color:var(--text2);line-height:1.55;font-weight:300}
-.cdel{margin-top:7px;font-size:9px;background:var(--surf);border:.5px solid var(--border);border-radius:3px;padding:3px 7px;color:var(--text2)}
-.cdel::before{content:'↳ ';color:var(--text3)}
+.cdel{margin-top:7px;font-size:9px;background:var(--surf);border:.5px solid var(--border);border-radius:3px;padding:3px 7px;color:var(--text2);line-height:1.4}
+.cdel::before{content:'\u21b3 ';color:var(--text3)}
 .cft{margin-top:8px;padding-top:8px;border-top:.5px solid var(--border);display:flex;justify-content:space-between}
 .csem{font-size:9px;font-family:var(--mono);color:var(--text3)}
 .cow{font-size:9px;color:var(--text3);font-weight:300}
-.sb{display:inline-block;font-size:8px;font-family:var(--mono);padding:1px 5px;border-radius:2px;margin-left:5px}
+.sb{display:inline-block;font-size:8px;font-family:var(--mono);padding:1px 5px;border-radius:2px;margin-left:5px;letter-spacing:.04em}
 .s0{background:var(--surf2);color:var(--text3)}.s1{background:#fff3cd;color:#856404}
 .s2{background:#d4edda;color:#155724}.s3{background:#f8d7da;color:#721c24}
 .hcard{background:var(--yel-l);border:.5px solid var(--yel-d);border-radius:var(--r);padding:11px 12px;margin-bottom:8px}
 .hcard.hid{display:none}.hcard.em{cursor:pointer;border-width:1px}
 .hcard.em:hover{border-color:var(--blk)}
-.hl{font-size:9px;font-family:var(--mono);font-weight:500;color:var(--yel-d);margin-bottom:5px}
-.ht{font-size:11px;font-weight:500;color:var(--blk)}.hn{font-size:9px;color:var(--yel-d);margin-top:4px}
-.addbtn{width:100%;height:30px;border:.5px dashed var(--border2);border-radius:var(--r);background:none;font-family:var(--mono);font-size:10px;color:var(--text3);cursor:pointer;margin-top:2px;display:none}
+.hl{font-size:9px;font-family:var(--mono);font-weight:500;color:var(--yel-d);letter-spacing:.07em;margin-bottom:5px}
+.ht{font-size:11px;font-weight:500;color:var(--blk);line-height:1.4}
+.hn{font-size:9px;color:var(--yel-d);margin-top:4px}
+.addbtn{width:100%;height:30px;border:.5px dashed var(--border2);border-radius:var(--r);background:none;font-family:var(--mono);font-size:10px;color:var(--text3);cursor:pointer;transition:all .15s;letter-spacing:.04em;margin-top:2px;display:none}
+.addbtn:hover{border-color:var(--text);color:var(--text)}
 .addbtn.v{display:block}
+
+/* ── STATS ── */
 .sum{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:26px;padding-top:22px;border-top:1px solid var(--border)}
 .sc{padding:13px 15px;background:var(--surf);border-radius:var(--r)}
-.sl{font-size:9px;font-family:var(--mono);color:var(--text3);margin-bottom:5px}
-.sv{font-size:22px;font-weight:500;line-height:1}.ss{font-size:9px;color:var(--text3);margin-top:3px;font-weight:300}
+.sl{font-size:9px;font-family:var(--mono);color:var(--text3);letter-spacing:.06em;margin-bottom:5px}
+.sv{font-size:22px;font-weight:500;color:var(--text);line-height:1}
+.ss{font-size:9px;color:var(--text3);margin-top:3px;font-weight:300}
+
+/* ── CRONOGRAMA ── */
+#crono-view{overflow-x:auto}
+.crono-wrap{min-width:900px}
+.crono-hdr{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:20px}
+.crono-t{font-size:15px;font-weight:500}
+.crono-s{font-size:11px;color:var(--text3);font-weight:300;margin-top:3px}
+.crono-legend{display:flex;gap:16px}
+.cl-item{display:flex;align-items:center;gap:6px;font-size:10px;color:var(--text2)}
+.cl-dot{width:10px;height:10px;border-radius:2px}
+.cl-pem{background:var(--yel)}.cl-rb{background:var(--blk)}.cl-hit{background:var(--yel-d)}
+
+/* Gantt table */
+.gt{width:100%;border-collapse:collapse;font-size:11px}
+.gt th{font-family:var(--mono);font-size:9px;font-weight:500;letter-spacing:.06em;padding:7px 10px;text-align:center;border:.5px solid var(--border);background:var(--blk);color:var(--yel)}
+.gt th.th-left{text-align:left}
+.gt th.th-group-pem{background:var(--yel);color:var(--blk);font-size:8px;letter-spacing:.08em}
+.gt th.th-group-rb{background:#333;color:var(--yel);font-size:8px;letter-spacing:.08em}
+.gt th.th-date{font-size:8px;color:var(--text3);background:var(--surf);border-color:var(--border);font-weight:400}
+.gt td{padding:7px 10px;border:.5px solid var(--border);vertical-align:middle;line-height:1.4}
+.gt tr:nth-child(odd) td{background:var(--surf)}
+.gt tr:nth-child(even) td{background:var(--bg)}
+.gt tr.row-hito td{background:var(--yel-l) !important}
+.gt tr.row-rb td{background:#f8f8f6 !important}
+.gt tr.row-rb:nth-child(even) td{background:#f0f0ec !important}
+
+.g-proyecto{font-family:var(--mono);font-size:9px;font-weight:500;letter-spacing:.05em;padding:4px 8px;border-radius:3px;display:inline-block;white-space:nowrap}
+.g-pem{background:var(--yel);color:var(--blk)}
+.g-rb{background:var(--blk);color:var(--yel)}
+.g-hit{background:var(--yel-d);color:#fff}
+
+.g-modulo{font-weight:500;font-size:11px;color:var(--text)}
+.g-modulo small{display:block;font-size:9px;color:var(--text3);font-weight:300;margin-top:2px}
+.g-act{font-size:10px;color:var(--text2);font-weight:300}
+.g-ent{font-size:10px;font-weight:400;color:var(--text)}
+.g-ent small{color:var(--text3);font-weight:300}
+.g-dur{font-family:var(--mono);font-size:10px;text-align:center;color:var(--text2)}
+.g-fi{font-family:var(--mono);font-size:9px;text-align:center;color:var(--text3)}
+.g-ff{font-family:var(--mono);font-size:9px;text-align:center;color:var(--text3)}
+
+/* Gantt cells */
+.gc{text-align:center;min-width:70px;position:relative}
+.gc .dot{width:22px;height:22px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:500}
+.gc .dot.pem-dot{background:var(--yel);color:var(--blk)}
+.gc .dot.rb-dot{background:var(--blk);color:var(--yel)}
+.gc .dot.hit-dot{background:var(--yel-d);color:#fff;font-size:12px}
+.gc .bar{height:10px;border-radius:5px;width:80%;margin:0 auto}
+.gc .bar.pem-bar{background:var(--yel)}
+.gc .bar.rb-bar{background:var(--blk)}
+.gc .bar.hit-bar{background:var(--yel-d)}
+.gc .bar.overlap{background:repeating-linear-gradient(45deg,var(--yel),var(--yel) 4px,var(--yel-d) 4px,var(--yel-d) 8px)}
+.gc.empty{background:transparent}
+
+/* Hito row special */
+.gt tr.row-hito .gc .dot.hit-dot{width:26px;height:26px;font-size:14px}
+
+/* Separator row */
+.gt tr.sep td{background:var(--blk) !important;padding:4px 10px}
+.gt tr.sep td .sep-label{font-family:var(--mono);font-size:8px;color:var(--yel);letter-spacing:.1em;font-weight:500}
+
+/* Summary bar below gantt */
+.crono-sum{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}
+.cs{padding:12px 15px;background:var(--surf);border-radius:var(--r);border-left:3px solid var(--border2)}
+.cs.cs-pem{border-left-color:var(--yel)}
+.cs.cs-rb{border-left-color:var(--blk)}
+.cs.cs-tot{border-left-color:var(--yel-d)}
+.csl{font-size:9px;font-family:var(--mono);color:var(--text3);letter-spacing:.06em;margin-bottom:6px}
+.csv{font-size:20px;font-weight:500;color:var(--text);line-height:1}
+.css{font-size:9px;color:var(--text3);margin-top:3px}
+
+/* ── MODAL ── */
 .ov{display:none;position:fixed;inset:0;background:rgba(17,17,16,.38);z-index:200;align-items:center;justify-content:center}
 .ov.open{display:flex}
 .modal{background:var(--bg);border-radius:10px;padding:26px;width:400px;max-width:94vw;border:.5px solid var(--border2)}
 .mh{font-size:13px;font-weight:500;margin-bottom:3px}
 .ms{font-size:11px;color:var(--text2);font-weight:300;padding-bottom:16px;margin-bottom:18px;border-bottom:1px solid var(--border)}
 .mf{margin-bottom:13px}
-.ml{font-size:10px;font-family:var(--mono);color:var(--text3);margin-bottom:4px;display:block}
-.mi,.mse,.mta{width:100%;border:.5px solid var(--border2);border-radius:var(--r);padding:7px 10px;font-family:var(--font);font-size:12px;color:var(--text);background:var(--bg);outline:none}
-.mta{resize:vertical;min-height:68px}.mse{height:34px;cursor:pointer}
+.ml{font-size:10px;font-family:var(--mono);color:var(--text3);letter-spacing:.06em;margin-bottom:4px;display:block}
+.mi,.mse,.mta{width:100%;border:.5px solid var(--border2);border-radius:var(--r);padding:7px 10px;font-family:var(--font);font-size:12px;color:var(--text);background:var(--bg);outline:none;transition:border-color .15s}
+.mi:focus,.mse:focus,.mta:focus{border-color:var(--blk)}
+.mta{resize:vertical;min-height:68px;line-height:1.5}
+.mse{height:34px;cursor:pointer}
 .mg{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .mac{display:flex;gap:8px;margin-top:18px;justify-content:flex-end;align-items:center}
 .bc{height:32px;padding:0 14px;border:.5px solid var(--border2);border-radius:var(--r);background:none;font-family:var(--mono);font-size:10px;color:var(--text2);cursor:pointer}
-.bsv{height:32px;padding:0 14px;background:var(--blk);color:var(--yel);border:none;border-radius:var(--r);font-family:var(--mono);font-size:10px;font-weight:500;cursor:pointer}
+.bc:hover{border-color:var(--text)}
+.bsv{height:32px;padding:0 14px;background:var(--blk);color:var(--yel);border:none;border-radius:var(--r);font-family:var(--mono);font-size:10px;font-weight:500;cursor:pointer;letter-spacing:.04em}
+.bsv:hover{opacity:.85}
 .bdl{height:32px;padding:0 14px;border:.5px solid #f5c6cb;border-radius:var(--r);background:none;font-family:var(--mono);font-size:10px;color:#c0392b;cursor:pointer;margin-right:auto}
+.bdl:hover{background:#fff0f0}
 .merr{font-size:10px;color:#c0392b;font-family:var(--mono);min-height:14px;margin-top:7px}
 </style>
 </head>
 <body>
 <div id="app">
-<div class="toolbar">
-  <div class="tb-brand"><div class="tb-dot"></div>WESTFIELD 2026</div>
-  <div class="tb-sep"></div>
-  <button class="fbtn on" data-f="all">TODOS</button>
-  <button class="fbtn pf" data-f="pem">PEM</button>
-  <button class="fbtn" data-f="rb">REBRANDING</button>
-  <button class="fbtn" data-f="hito">HITOS</button>
-  <div class="tb-sep"></div>
-  <button class="fbtn" data-s="todo">POR HACER</button>
-  <button class="fbtn" data-s="doing">EN CURSO</button>
-  <button class="fbtn" data-s="done">LISTO</button>
-  <button class="fbtn" data-s="blocked">BLOQUEADO</button>
-  <div class="tb-r">
-    <div class="lkbadge" id="lkb">&#9689; solo lectura</div>
-    <button class="ebtn" id="ebtn">&#9998; EDITAR</button>
-    <button class="logbtn" id="logbtn">SALIR</button>
+
+  <!-- TOOLBAR -->
+  <div class="toolbar">
+    <div class="tb-brand"><div class="tb-dot"></div>WESTFIELD 2026</div>
+    <div class="tb-sep"></div>
+    <button class="fbtn on" data-f="all">TODOS</button>
+    <button class="fbtn pf" data-f="pem">PEM</button>
+    <button class="fbtn" data-f="rb">REBRANDING</button>
+    <button class="fbtn" data-f="hito">HITOS</button>
+    <div class="tb-sep"></div>
+    <button class="fbtn" data-s="todo">POR HACER</button>
+    <button class="fbtn" data-s="doing">EN CURSO</button>
+    <button class="fbtn" data-s="done">LISTO</button>
+    <button class="fbtn" data-s="blocked">BLOQUEADO</button>
+    <div class="tb-r">
+      <div class="lkbadge" id="lkb">&#9689; solo lectura</div>
+      <button class="ebtn" id="ebtn">&#9998; EDITAR</button>
+      <button class="logbtn" id="logbtn">SALIR</button>
+    </div>
   </div>
-</div>
-<div class="kb-hdr">
-  <div>
-    <div class="kb-t">Westfield International University &mdash; PEM + Rebranding 2026</div>
-    <div class="kb-s">Adcom / Brand Group &middot; Disco Studio &nbsp;&middot;&nbsp; 15 semanas</div>
+
+  <!-- VIEW TABS -->
+  <div class="vtabs">
+    <button class="vt on" id="vt-kanban">&#9776;&nbsp; TABLERO DE TAREAS</button>
+    <button class="vt" id="vt-crono">&#9632;&nbsp; CRONOGRAMA</button>
   </div>
-  <div class="leg">
-    <div class="li"><div class="ld p"></div>PEM</div>
-    <div class="li"><div class="ld r"></div>Rebranding</div>
-    <div class="li"><div class="ld h"></div>Hito</div>
+
+  <!-- ══════════════════════ KANBAN VIEW ══════════════════════ -->
+  <div class="view-panel active" id="kanban-view">
+    <div class="kb-hdr">
+      <div>
+        <div class="kb-t">Westfield International University &mdash; PEM + Rebranding 2026</div>
+        <div class="kb-s">Adcom / Brand Group &middot; Disco Studio &nbsp;&middot;&nbsp; 12 semanas &middot; PEM 20 abr&rarr;22 may &middot; RB 25 may&rarr;17 jul</div>
+      </div>
+      <div class="leg">
+        <div class="li"><div class="ld p"></div>PEM</div>
+        <div class="li"><div class="ld r"></div>Rebranding</div>
+        <div class="li"><div class="ld h"></div>Hito</div>
+      </div>
+    </div>
+    <div class="board" id="board"></div>
+    <div class="sum">
+      <div class="sc"><div class="sl">DURACIÓN PEM</div><div class="sv">4</div><div class="ss">semanas &middot; 20 abr &rarr; 22 may 2026</div></div>
+      <div class="sc"><div class="sl">DURACIÓN REBRANDING</div><div class="sv">8</div><div class="ss">semanas &middot; 25 may &rarr; 17 jul 2026</div></div>
+      <div class="sc"><div class="sl">PRESUPUESTO</div><div class="sv">11.7k</div><div class="ss">USD &middot; PEM $4.5k + RB $7.2k</div></div>
+      <div class="sc"><div class="sl">COMPLETADAS</div><div class="sv" id="dc">&mdash;</div><div class="ss">tarjetas marcadas como listo</div></div>
+    </div>
   </div>
-</div>
-<div class="board" id="board"></div>
-<div class="sum">
-  <div class="sc"><div class="sl">DURACION TOTAL</div><div class="sv">15</div><div class="ss">semanas PEM + Rebranding</div></div>
-  <div class="sc"><div class="sl">TARJETAS</div><div class="sv" id="tc">-</div><div class="ss">tareas + hitos</div></div>
-  <div class="sc"><div class="sl">PRESUPUESTO</div><div class="sv">11.7k</div><div class="ss">USD PEM $4.5k + RB $7.2k</div></div>
-  <div class="sc"><div class="sl">COMPLETADAS</div><div class="sv" id="dc">0</div><div class="ss">marcadas como listo</div></div>
-</div>
-</div>
+
+  <!-- ══════════════════════ CRONOGRAMA VIEW ══════════════════════ -->
+  <div class="view-panel" id="crono-view">
+    <div class="crono-hdr">
+      <div>
+        <div class="crono-t">Cronograma PEM + Rebranding &mdash; Westfield International University 2026</div>
+        <div class="crono-s">Adcom / Brand Group &middot; Disco Studio &middot; 12 semanas totales &middot; 20 abr &rarr; 17 jul 2026</div>
+      </div>
+      <div class="crono-legend">
+        <div class="cl-item"><div class="cl-dot cl-pem"></div>PEM (Adcom)</div>
+        <div class="cl-item"><div class="cl-dot cl-rb"></div>Rebranding (Disco Studio)</div>
+        <div class="cl-item"><div class="cl-dot cl-hit"></div>Hito de entrega</div>
+      </div>
+    </div>
+
+    <div class="crono-wrap">
+    <table class="gt">
+      <thead>
+        <!-- Fila 1: grupos -->
+        <tr>
+          <th class="th-left" rowspan="2" style="min-width:90px">PROYECTO</th>
+          <th class="th-left" rowspan="2" style="min-width:160px">MÓDULO / FASE</th>
+          <th class="th-left" rowspan="2" style="min-width:190px">ACTIVIDADES CLAVE</th>
+          <th class="th-left" rowspan="2" style="min-width:160px">ENTREGABLE</th>
+          <th rowspan="2" style="min-width:50px">DUR.</th>
+          <th rowspan="2" style="min-width:80px">INICIO</th>
+          <th rowspan="2" style="min-width:80px">FIN</th>
+          <th colspan="4" class="th-group-pem">&#9650; PEM &mdash; 4 SEMANAS</th>
+          <th colspan="6" class="th-group-rb">&#9650; REBRANDING &mdash; 8 SEMANAS</th>
+        </tr>
+        <!-- Fila 2: fechas por semana -->
+        <tr>
+          <th class="th-date">S1<br><small>20–25 abr</small></th>
+          <th class="th-date">S2<br><small>27 abr–2 may</small></th>
+          <th class="th-date">S3<br><small>4–9 may</small></th>
+          <th class="th-date">S4 &#9873;<br><small>11–22 may</small></th>
+          <th class="th-date">F1<br><small>25–29 may</small></th>
+          <th class="th-date">F2<br><small>1–5 jun</small></th>
+          <th class="th-date">F3<br><small>8–19 jun</small></th>
+          <th class="th-date">F4<br><small>22 jun–3 jul</small></th>
+          <th class="th-date">F5a<br><small>6–10 jul</small></th>
+          <th class="th-date">F5b<br><small>13–17 jul</small></th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- ── PEM M1 ── -->
+        <tr>
+          <td><span class="g-proyecto g-pem">PEM</span></td>
+          <td><div class="g-modulo">M1 · Radar Estratégico<small>Módulo 1 &middot; Sem 1–2</small></div></td>
+          <td><div class="g-act">Briefing &amp; debriefing con Westfield · Análisis mercado MBA online LATAM · Benchmark competitivo · Tendencias educación ejecutiva · Síntesis estratégica</div></td>
+          <td><div class="g-ent">Informe Radar Estratégico<small>+ Síntesis competitiva</small></div></td>
+          <td class="g-dur">2 sem.</td>
+          <td class="g-fi">20 abr</td>
+          <td class="g-ff">2 may</td>
+          <td class="gc"><div class="bar pem-bar"></div></td>
+          <td class="gc"><div class="bar overlap"></div></td>
+          <td class="gc empty"></td>
+          <td class="gc empty"></td>
+          <td class="gc empty"></td><td class="gc empty"></td><td class="gc empty"></td><td class="gc empty"></td><td class="gc empty"></td><td class="gc empty"></td>
+        </tr>
+        <!-- ── PEM M2 ── -->
+        <tr>
+          <td><span class="g-proyecto g-pem">PEM</span></td>
+          <td><div class="g-modulo">M2 · Audiencias &amp; Personas<small>Módulo 2 &middot; Sem 2–3</small></div></td>
+          <td><div class="g-act">Definición y priorización de audiencias · Buyer personas B2C/B2B · Journeys de decisión · Matriz de insights accionables</div></td>
+          <td><div class="g-ent">Documento Audiencias<small>+ Buyer Personas + Decision Journey</small></div></td>
+          <td class="g-dur">2 sem.</td>
+          <td class="g-fi">27 abr</td>
+          <td class="g-ff">9 may</td>
+          <td class="gc empty"></td>
+          <td class="gc"><div class="bar overlap"></div></td>
+          <td class="gc"><div class="bar overlap"></div></td>
+          <td class="gc empty"></td>
+          <td class="gc empty"></td><td class="gc empty"></td><td class="gc empty"></td><td class="gc empty"></td><td class="gc empty"></td><td class="gc empty"></td>
+        </tr>
+        <!-- ── PEM M3 ── -->
+        <tr>
+          <td><span class="g-proyecto g-pem">PEM</span></td>
+          <td><div class="g-modulo">M3 · Plataforma Estratégica<small>Módulo 3 &middot; Sem 3–4</small></div></td>
+          <td><div class="g-act">Propósito, posicionamiento y propuesta de valor · Personalidad y tono de voz · Manifiesto de marca · Brand Key / One-pager</div></td>
+          <td><div class="g-ent">PEM completa<small>+ Brand Key + Manifiesto</small></div></td>
+          <td class="g-dur">2 sem.</td>
+          <td class="g-fi">4 may</td>
+          <td class="g-ff">22 may</td>
+          <td class="gc empty"></td>
+          <td class="gc empty"></td>
+          <td class="gc"><div class="bar overlap"></div></td>
+          <td class="gc"><div class="bar pem-bar"></div></td>
+          <td class="gc empty"></td><td class="gc empty"></td><td class="gc empty"></td><td class="gc empty"></td><td class="gc empty"></td><td class="gc empty"></td>
+        </tr>
+        <!-- ── HITO PEM ── -->
+        <tr class="row-hito">
+          <td><span class="g-proyecto g-hit">HITO</span></td>
+          <td><div class="g-modulo">&#9873; Entrega PEM &amp; Handoff<small>Semana del 22 de mayo 2026</small></div></td>
+          <td><div class="g-act">Presentación final con Andrea Sierra · Aprobación PEM · Entrega formal a Disco Studio · Sesión de alineación estratégica</div></td>
+          <td><div class="g-ent">PEM aprobada<small>Handoff a Disco Studio</small></div></td>
+          <td class="g-dur">1 sem.</td>
+          <td class="g-fi">22 may</td>
+          <td class="g-ff">22 may</td>
+          <td class="gc empty"></td><td class="gc empty"></td><td class="gc empty"></td>
+          <td class="gc"><div class="dot hit-dot">&#9873;</div></td>
+          <td class="gc empty"></td><td class="gc empty"></td><td class="gc empty"></td><td class="gc empty"></td><td class="gc empty"></td><td class="gc empty"></td>
+        </tr>
+
+        <!-- Separador -->
+        <tr class="sep"><td colspan="17"><div class="sep-label">REBRANDING &mdash; DISCO STUDIO &mdash; INICIA 25 MAYO 2026</div></td></tr>
+
+        <!-- ── RB F1 ── -->
+        <tr class="row-rb">
+          <td><span class="g-proyecto g-rb">RB</span></td>
+          <td><div class="g-modulo">F1 · Entendimiento<small>Fase 1 &middot; 25–29 may</small></div></td>
+          <td><div class="g-act">KickOff Rebranding con insumo PEM · Briefing con Disco Studio · Definición de alcance creativo</div></td>
+          <td><div class="g-ent">Brief consolidado<small>del proyecto RB</small></div></td>
+          <td class="g-dur">1 sem.</td>
+          <td class="g-fi">25 may</td>
+          <td class="g-ff">29 may</td>
+          <td class="gc empty"></td><td class="gc empty"></td><td class="gc empty"></td><td class="gc empty"></td>
+          <td class="gc"><div class="bar rb-bar"></div></td>
+          <td class="gc empty"></td><td class="gc empty"></td><td class="gc empty"></td><td class="gc empty"></td><td class="gc empty"></td>
+        </tr>
+        <!-- ── RB F2 ── -->
+        <tr class="row-rb">
+          <td><span class="g-proyecto g-rb">RB</span></td>
+          <td><div class="g-modulo">F2 · Observar y Empatizar<small>Fase 2 &middot; 1–5 jun</small></div></td>
+          <td><div class="g-act">Desk research competidores y referentes · 3 entrevistas con usuarios objetivo · Propuesta arquitectura de marca</div></td>
+          <td><div class="g-ent">Benchmarking visual<small>+ take aways inspiración</small></div></td>
+          <td class="g-dur">1 sem.</td>
+          <td class="g-fi">1 jun</td>
+          <td class="g-ff">5 jun</td>
+          <td class="gc empty"></td><td class="gc empty"></td><td class="gc empty"></td><td class="gc empty"></td><td class="gc empty"></td>
+          <td class="gc"><div class="bar rb-bar"></div></td>
+          <td class="gc empty"></td><td class="gc empty"></td><td class="gc empty"></td><td class="gc empty"></td>
+        </tr>
+        <!-- ── RB F3 ── -->
+        <tr class="row-rb">
+          <td><span class="g-proyecto g-rb">RB</span></td>
+          <td><div class="g-modulo">F3 · Idear<small>Fase 3 &middot; 8–19 jun</small></div></td>
+          <td><div class="g-act">2 user personas visuales · 2 caminos estratégicos de identidad · Presentación y validación con Westfield</div></td>
+          <td><div class="g-ent">Caminos estratégicos<small>visuales y conceptuales</small></div></td>
+          <td class="g-dur">2 sem.</td>
+          <td class="g-fi">8 jun</td>
+          <td class="g-ff">19 jun</td>
+          <td class="gc empty"></td><td class="gc empty"></td><td class="gc empty"></td><td class="gc empty"></td><td class="gc empty"></td><td class="gc empty"></td>
+          <td class="gc"><div class="bar rb-bar"></div></td>
+          <td class="gc empty"></td><td class="gc empty"></td><td class="gc empty"></td>
+        </tr>
+        <!-- ── RB F4 ── -->
+        <tr class="row-rb">
+          <td><span class="g-proyecto g-rb">RB</span></td>
+          <td><div class="g-modulo">F4 · Iterar<small>Fase 4 &middot; 22 jun–3 jul</small></div></td>
+          <td><div class="g-act">3 prototipos de logo con nombre WIU · Arquitectura de marca · Hasta 3 rondas de ajuste · Elección de prototipo final</div></td>
+          <td><div class="g-ent">Prototipo elegido<small>+ arquitectura de marca</small></div></td>
+          <td class="g-dur">2 sem.</td>
+          <td class="g-fi">22 jun</td>
+          <td class="g-ff">3 jul</td>
+          <td class="gc empty"></td><td class="gc empty"></td><td class="gc empty"></td><td class="gc empty"></td><td class="gc empty"></td><td class="gc empty"></td><td class="gc empty"></td>
+          <td class="gc"><div class="bar rb-bar"></div></td>
+          <td class="gc empty"></td><td class="gc empty"></td>
+        </tr>
+        <!-- ── RB F5 ── -->
+        <tr class="row-rb">
+          <td><span class="g-proyecto g-rb">RB</span></td>
+          <td><div class="g-modulo">F5 · Implementar<small>Fase 5 &middot; 6–17 jul</small></div></td>
+          <td><div class="g-act">Manual de marca completo · Aplicaciones papelería (4), redes (6), merch (5) · Hasta 2 rondas de ajuste · Socialización al equipo</div></td>
+          <td><div class="g-ent">Manual de marca final<small>+ PDFs y editables en alta</small></div></td>
+          <td class="g-dur">2 sem.</td>
+          <td class="g-fi">6 jul</td>
+          <td class="g-ff">17 jul</td>
+          <td class="gc empty"></td><td class="gc empty"></td><td class="gc empty"></td><td class="gc empty"></td><td class="gc empty"></td><td class="gc empty"></td><td class="gc empty"></td><td class="gc empty"></td>
+          <td class="gc"><div class="bar rb-bar"></div></td>
+          <td class="gc"><div class="bar rb-bar"></div></td>
+        </tr>
+        <!-- ── HITO CIERRE ── -->
+        <tr class="row-hito">
+          <td><span class="g-proyecto g-hit">HITO</span></td>
+          <td><div class="g-modulo">&#9873; Cierre &amp; Socialización<small>Semana del 17 jul 2026</small></div></td>
+          <td><div class="g-act">Entrega final a Westfield · Socialización con equipo interno · Acompañamiento en implementación 1 mes</div></td>
+          <td><div class="g-ent">Marca lista para implementar<small>+ acompañamiento 1 mes</small></div></td>
+          <td class="g-dur">—</td>
+          <td class="g-fi">17 jul</td>
+          <td class="g-ff">17 jul</td>
+          <td class="gc empty"></td><td class="gc empty"></td><td class="gc empty"></td><td class="gc empty"></td><td class="gc empty"></td><td class="gc empty"></td><td class="gc empty"></td><td class="gc empty"></td><td class="gc empty"></td>
+          <td class="gc"><div class="dot hit-dot">&#9873;</div></td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+
+    <!-- Summary cronograma -->
+    <div class="crono-sum">
+      <div class="cs cs-pem">
+        <div class="csl">PEM &mdash; ADCOM / BRAND GROUP</div>
+        <div class="csv">4 semanas</div>
+        <div class="css">20 abr &rarr; 22 may 2026 &middot; USD 4.500 &middot; Andrés Campos + Daniel Rodríguez</div>
+      </div>
+      <div class="cs cs-rb">
+        <div class="csl">REBRANDING &mdash; DISCO STUDIO</div>
+        <div class="csv">8 semanas</div>
+        <div class="css">25 may &rarr; 17 jul 2026 &middot; USD 7.200 &middot; @estudiodisco Bogotá</div>
+      </div>
+      <div class="cs cs-tot">
+        <div class="csl">PROYECTO TOTAL</div>
+        <div class="csv">12 semanas</div>
+        <div class="css">20 abr &rarr; 17 jul 2026 &middot; USD 11.700 &middot; Cliente: Andrea Sierra, CMO</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /#app -->
+
+<!-- MODAL -->
 <div class="ov" id="ov">
-<div class="modal">
-  <div class="mh" id="mhd">Acceso de edicion</div>
-  <div class="ms" id="msd">Ingresa tus credenciales para editar</div>
-  <div id="plogin">
-    <div class="mg">
-      <div class="mf"><label class="ml">LOGIN</label><input class="mi" id="iu" type="text" autocomplete="off" placeholder="usuario"></div>
-      <div class="mf"><label class="ml">CLAVE</label><input class="mi" id="ip" type="password" placeholder="clave"></div>
+  <div class="modal">
+    <div class="mh" id="mhd">Acceso de edici&oacute;n</div>
+    <div class="ms" id="msd">Ingresa tus credenciales para editar el tablero</div>
+    <div id="plogin">
+      <div class="mg">
+        <div class="mf"><label class="ml">LOGIN</label><input class="mi" id="iu" type="text" autocomplete="off" placeholder="usuario"></div>
+        <div class="mf"><label class="ml">CLAVE</label><input class="mi" id="ip" type="password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;"></div>
+      </div>
+      <div class="merr" id="lerr"></div>
+      <div class="mac"><button class="bc" id="lcan">Cancelar</button><button class="bsv" id="lok">INGRESAR &rarr;</button></div>
     </div>
-    <div class="merr" id="lerr"></div>
-    <div class="mac"><button class="bc" id="lcan">Cancelar</button><button class="bsv" id="lok">INGRESAR</button></div>
-  </div>
-  <div id="pedit" style="display:none">
-    <div class="mf"><label class="ml">TITULO</label><input class="mi" id="mt" type="text"></div>
-    <div class="mf"><label class="ml">DESCRIPCION</label><textarea class="mta" id="mb"></textarea></div>
-    <div class="mf"><label class="ml">ENTREGABLE</label><input class="mi" id="md" type="text"></div>
-    <div class="mg">
-      <div class="mf"><label class="ml">SEMANA</label><input class="mi" id="msem" type="text"></div>
-      <div class="mf"><label class="ml">RESPONSABLE</label><input class="mi" id="mo" type="text"></div>
-    </div>
-    <div class="mf"><label class="ml">ESTADO</label>
-      <select class="mse" id="mst"><option value="todo">Por hacer</option><option value="doing">En curso</option><option value="done">Listo</option><option value="blocked">Bloqueado</option></select>
-    </div>
-    <div class="mf"><label class="ml">COLUMNA</label>
-      <select class="mse" id="mc"><option value="0">En curso</option><option value="1">Investigacion</option><option value="2">Estrategia de marca</option><option value="3">Diseno de identidad</option><option value="4">Entrega final</option></select>
-    </div>
-    <div class="mac">
-      <button class="bdl" id="mdel" style="display:none">Eliminar</button>
-      <button class="bc" id="mcan">Cancelar</button>
-      <button class="bsv" id="msav">GUARDAR</button>
+    <div id="pedit" style="display:none">
+      <div class="mf"><label class="ml">T&Iacute;TULO</label><input class="mi" id="mt" type="text"></div>
+      <div class="mf"><label class="ml">DESCRIPCI&Oacute;N</label><textarea class="mta" id="mb"></textarea></div>
+      <div class="mf"><label class="ml">ENTREGABLE</label><input class="mi" id="md" type="text" placeholder="Opcional"></div>
+      <div class="mg">
+        <div class="mf"><label class="ml">SEMANA(S)</label><input class="mi" id="msem" type="text"></div>
+        <div class="mf"><label class="ml">RESPONSABLE</label><input class="mi" id="mo" type="text"></div>
+      </div>
+      <div class="mf"><label class="ml">ESTADO</label>
+        <select class="mse" id="mst"><option value="todo">Por hacer</option><option value="doing">En curso</option><option value="done">Listo</option><option value="blocked">Bloqueado</option></select>
+      </div>
+      <div class="mf"><label class="ml">COLUMNA</label>
+        <select class="mse" id="mc"><option value="0">En curso</option><option value="1">Investigaci&oacute;n</option><option value="2">Estrategia de marca</option><option value="3">Dise&ntilde;o de identidad</option><option value="4">Entrega final</option></select>
+      </div>
+      <div class="mac">
+        <button class="bdl" id="mdel" style="display:none">Eliminar</button>
+        <button class="bc" id="mcan">Cancelar</button>
+        <button class="bsv" id="msav">GUARDAR</button>
+      </div>
     </div>
   </div>
 </div>
-</div>
+
 <script>
-var C=[{l:'En curso',c:'ap'},{l:'Investigacion',c:'ap'},{l:'Estrategia de marca',c:''},{l:'Diseno de identidad',c:''},{l:'Entrega final',c:''}];
-var D=[
-{id:'k1',col:0,type:'pem',tag:'PEM',title:'KickOff + Briefing Westfield',body:'Reunion con Andrea Sierra. Validacion de objetivos, portafolio y activos de marca.',del:'Brief consolidado',sem:'Sem 1',own:'Andres C. + Daniel R.',st:'doing'},
-{id:'k2',col:0,type:'pem',tag:'PEM M1',title:'Radar estrategico - inmersion de marca',body:'Revision de portafolio, activos digitales, tono y resultados historicos de campanas.',del:'',sem:'Sem 1-2',own:'Andres Campos',st:'doing'},
-{id:'k3',col:1,type:'pem',tag:'PEM M1',title:'Analisis mercado MBA online LATAM',body:'Informes sectoriales, dinamicas de crecimiento y factores macro de la categoria.',del:'Informe Radar Estrategico',sem:'Sem 1-3',own:'Andres Campos',st:'todo'},
-{id:'k4',col:1,type:'pem',tag:'PEM M1',title:'Diagnostico competitivo y benchmarking',body:'Benchmark de competidores directos e indirectos. White spaces para Westfield.',del:'',sem:'Sem 2-3',own:'Andres Campos',st:'todo'},
-{id:'k5',col:1,type:'pem',tag:'PEM M1',title:'Tendencias educacion ejecutiva global',body:'Lifelong learning, microcredenciales, formatos hibridos, impacto IA en MBA.',del:'',sem:'Sem 3',own:'Andres Campos',st:'todo'},
-{id:'k6',col:2,type:'pem',tag:'PEM M2',title:'Audiencias y buyer personas',body:'Segmentacion B2C y B2B. Buyer personas con contexto, motivaciones y journey.',del:'Audiencias + Decision Journey',sem:'Sem 3-5',own:'Andres Campos',st:'todo'},
-{id:'k7',col:2,type:'pem',tag:'PEM M2',title:'Matriz de insights accionables',body:'Tension - insight - oportunidad - implicacion para la marca.',del:'',sem:'Sem 5',own:'Andres Campos',st:'todo'},
-{id:'k8',col:2,type:'pem',tag:'PEM M3',title:'Plataforma estrategica de marca',body:'Proposito, posicionamiento, propuesta de valor, personalidad y Golden Circle.',del:'Documento PEM completo',sem:'Sem 5-7',own:'Andres C. + Daniel R.',st:'todo'},
-{id:'k9',col:2,type:'pem',tag:'PEM M3',title:'Manifiesto + Brand Key',body:'Manifiesto de marca, elevator pitch y one-pager Brand Key.',del:'Brand Key / One-pager',sem:'Sem 6-7',own:'Andres Campos',st:'todo'},
-{id:'h1',col:3,type:'hito',tag:'HITO',title:'Handoff PEM - Disco Studio',body:'Inicio formal del Rebranding',del:'',sem:'Sem 7',own:'Adcom/Brand Group',st:'todo'},
-{id:'k10',col:3,type:'rb',tag:'REBR F1-F2',title:'Briefing + desk research',body:'KickOff Rebranding con insumo PEM. 3 entrevistas con usuarios objetivo.',del:'Benchmarking + take aways',sem:'RB Sem 1-2',own:'Disco Studio',st:'todo'},
-{id:'k11',col:3,type:'rb',tag:'REBR F3',title:'2 caminos estrategicos de marca',body:'User personas visuales. Dos direcciones de identidad para validar con Westfield.',del:'Caminos estrategicos visuales',sem:'RB Sem 3-4',own:'Disco Studio',st:'todo'},
-{id:'k12',col:3,type:'rb',tag:'REBR F4',title:'3 prototipos de logo + arquitectura',body:'Logo Westfield International University. Hasta 3 rondas de ajuste.',del:'Prototipo elegido + arquitectura',sem:'RB Sem 5-6',own:'Disco Studio',st:'todo'},
-{id:'k13',col:4,type:'rb',tag:'REBR F5',title:'Manual de marca completo',body:'Identidad visual, logotipo, paleta, tipografia, estilo fotografico y Brand Key.',del:'Manual de marca + editables',sem:'RB Sem 7-8',own:'Disco Studio',st:'todo'},
-{id:'k14',col:4,type:'rb',tag:'REBR F5',title:'Aplicaciones look and feel',body:'Papeleria (4), redes sociales (6), merchandising (5). PDF y editables en alta.',del:'',sem:'RB Sem 7-8',own:'Disco Studio',st:'todo'},
-{id:'h2',col:4,type:'hito',tag:'CIERRE',title:'Socializacion y entrega final Westfield',body:'Acompanamiento en implementacion durante 1 mes',del:'',sem:'RB Sem 8',own:'Disco Studio',st:'todo'}
+// ── VIEW TABS ──────────────────────────────────────────────────────────────────
+document.getElementById('vt-kanban').onclick=function(){
+  document.getElementById('kanban-view').classList.add('active');
+  document.getElementById('crono-view').classList.remove('active');
+  this.classList.add('on');
+  document.getElementById('vt-crono').classList.remove('on');
+};
+document.getElementById('vt-crono').onclick=function(){
+  document.getElementById('crono-view').classList.add('active');
+  document.getElementById('kanban-view').classList.remove('active');
+  this.classList.add('on');
+  document.getElementById('vt-kanban').classList.remove('on');
+};
+
+// ── KANBAN DATA ────────────────────────────────────────────────────────────────
+var COLS=[{l:'En curso',c:'ap'},{l:'Investigaci\u00f3n',c:'ap'},{l:'Estrategia de marca',c:''},{l:'Dise\u00f1o de identidad',c:''},{l:'Entrega final',c:''}];
+var DEF=[
+  {id:'k1',col:0,type:'pem',tag:'PEM',title:'KickOff + Briefing con Westfield',body:'Reuni\u00f3n de alineaci\u00f3n con Andrea Sierra. Validaci\u00f3n de objetivos, portafolio y activos de marca actuales.',del:'Brief consolidado del proyecto',sem:'Sem 1 \u00b7 20\u201325 abr',own:'Andr\u00e9s C. + Daniel R.',st:'doing'},
+  {id:'k2',col:0,type:'pem',tag:'PEM \u00b7 M1',title:'Radar estrat\u00e9gico \u2014 inmersi\u00f3n de marca',body:'Revisi\u00f3n de portafolio, activos digitales, tono de comunicaci\u00f3n y resultados hist\u00f3ricos de campa\u00f1as.',del:'',sem:'Sem 1\u20132 \u00b7 20 abr\u20132 may',own:'Andr\u00e9s Campos',st:'doing'},
+  {id:'k3',col:1,type:'pem',tag:'PEM \u00b7 M1',title:'An\u00e1lisis de mercado MBA online LATAM',body:'Revisi\u00f3n de informes sectoriales, din\u00e1micas de crecimiento y factores macro que impactan la categor\u00eda.',del:'Informe Radar Estrat\u00e9gico',sem:'Sem 1\u20132 \u00b7 20 abr\u20132 may',own:'Andr\u00e9s Campos',st:'todo'},
+  {id:'k4',col:1,type:'pem',tag:'PEM \u00b7 M1',title:'Diagn\u00f3stico competitivo y benchmarking',body:'Benchmark de competidores directos e indirectos. White spaces para Westfield.',del:'',sem:'Sem 2\u20133 \u00b7 27 abr\u20139 may',own:'Andr\u00e9s Campos',st:'todo'},
+  {id:'k5',col:1,type:'pem',tag:'PEM \u00b7 M1',title:'Tendencias educaci\u00f3n ejecutiva global',body:'Lifelong learning, microcredenciales, formatos h\u00edbridos, impacto de IA en el mercado MBA.',del:'',sem:'Sem 3 \u00b7 4\u20139 may',own:'Andr\u00e9s Campos',st:'todo'},
+  {id:'k6',col:2,type:'pem',tag:'PEM \u00b7 M2',title:'Audiencias y buyer personas',body:'Segmentaci\u00f3n B2C y B2B. Buyer personas con contexto, motivaciones, objeciones y journey digital.',del:'Documento Audiencias + Decision Journey',sem:'Sem 2\u20133 \u00b7 27 abr\u20139 may',own:'Andr\u00e9s Campos',st:'todo'},
+  {id:'k7',col:2,type:'pem',tag:'PEM \u00b7 M2',title:'Matriz de insights accionables',body:'Tensi\u00f3n \u2192 insight \u2192 oportunidad \u2192 implicaci\u00f3n para la marca.',del:'',sem:'Sem 3 \u00b7 4\u20139 may',own:'Andr\u00e9s Campos',st:'todo'},
+  {id:'k8',col:2,type:'pem',tag:'PEM \u00b7 M3',title:'Plataforma estrat\u00e9gica de marca',body:'Prop\u00f3sito, posicionamiento, propuesta de valor, personalidad, tono de voz y Golden Circle.',del:'Documento PEM completo',sem:'Sem 3\u20134 \u00b7 4\u201322 may',own:'Andr\u00e9s C. + Daniel R.',st:'todo'},
+  {id:'k9',col:2,type:'pem',tag:'PEM \u00b7 M3',title:'Manifiesto + Brand Key',body:'Redacci\u00f3n del manifiesto de marca, elevator pitch y one-pager Brand Key.',del:'Brand Key / One-pager',sem:'Sem 4 \u00b7 11\u201322 may',own:'Andr\u00e9s Campos',st:'todo'},
+  {id:'h1',col:3,type:'hito',tag:'HITO',title:'Handoff PEM \u2192 Disco Studio',body:'Entrega formal de la PEM aprobada. Inicio del Rebranding.',del:'',sem:'\u9873 22 may 2026',own:'Adcom/Brand Group',st:'todo'},
+  {id:'k10',col:3,type:'rb',tag:'RB \u00b7 F1\u2013F2',title:'Briefing + desk research',body:'KickOff Rebranding con insumo PEM. Benchmarking visual. 3 entrevistas con usuarios objetivo.',del:'Benchmarking + take aways',sem:'F1\u2013F2 \u00b7 25 may\u20135 jun',own:'Disco Studio',st:'todo'},
+  {id:'k11',col:3,type:'rb',tag:'RB \u00b7 F3',title:'2 caminos estrat\u00e9gicos de marca',body:'User personas visuales. Dos direcciones de identidad para validar con Westfield.',del:'Caminos estrat\u00e9gicos visuales',sem:'F3 \u00b7 8\u201319 jun',own:'Disco Studio',st:'todo'},
+  {id:'k12',col:3,type:'rb',tag:'RB \u00b7 F4',title:'3 prototipos de logo + arquitectura',body:'Logo con nombre Westfield International University. Hasta 3 rondas de ajuste.',del:'Prototipo elegido + arquitectura',sem:'F4 \u00b7 22 jun\u20133 jul',own:'Disco Studio',st:'todo'},
+  {id:'k13',col:4,type:'rb',tag:'RB \u00b7 F5',title:'Manual de marca completo',body:'Identidad visual, logotipo, paleta, tipograf\u00eda, estilo fotogr\u00e1fico, iconograf\u00eda y Brand Key.',del:'Manual de marca + editables',sem:'F5 \u00b7 6\u201317 jul',own:'Disco Studio',st:'todo'},
+  {id:'k14',col:4,type:'rb',tag:'RB \u00b7 F5',title:'Aplicaciones look & feel',body:'Papelar\u00eda (4 piezas), redes sociales (6 piezas), merchandising (5 piezas). PDF y editables.',del:'',sem:'F5 \u00b7 6\u201317 jul',own:'Disco Studio',st:'todo'},
+  {id:'h2',col:4,type:'hito',tag:'CIERRE',title:'Socializaci\u00f3n y entrega final a Westfield',body:'Entrega definitiva a Andrea Sierra. Acompa\u00f1amiento en implementaci\u00f3n 1 mes.',del:'',sem:'\u9873 17 jul 2026',own:'Disco Studio',st:'todo'},
 ];
-var SK='wf_kb_v3',cards=[],em=false,auth=false,eid=null,af='all',as_=null;
+var SK='wf_kb_v4',cards=[],emode=false,auth=false,eid=null,pcol=null,af='all',as_=null;
 var SL={todo:'por hacer',doing:'en curso',done:'listo',blocked:'bloqueado'};
 var SC={todo:'s0',doing:'s1',done:'s2',blocked:'s3'};
-function load(){try{var d=localStorage.getItem(SK);cards=d?JSON.parse(d):JSON.parse(JSON.stringify(D));}catch(e){cards=JSON.parse(JSON.stringify(D));}}
+function load(){try{var d=localStorage.getItem(SK);cards=d?JSON.parse(d):JSON.parse(JSON.stringify(DEF));}catch(e){cards=JSON.parse(JSON.stringify(DEF));}}
 function save(){try{localStorage.setItem(SK,JSON.stringify(cards));}catch(e){}}
 function vis(c){return(af==='all'||c.type===af||(af==='hito'&&c.type==='hito'))&&(!as_||c.st===as_);}
 function render(){
   var b=document.getElementById('board');b.innerHTML='';
-  C.forEach(function(col,ci){
+  COLS.forEach(function(col,ci){
     var cc=cards.filter(function(c){return c.col===ci;});
     var vc=cc.filter(function(c){return vis(c);}).length;
     var div=document.createElement('div');div.className='kb-col';
     div.innerHTML='<div class="ch '+(col.c||'')+'"><div class="cn">0'+(ci+1)+'</div><div class="cl">'+col.l+'</div><div class="cc">'+vc+' tarjeta'+(vc!==1?'s':'')+'</div></div>';
     cc.forEach(function(c){div.appendChild(mk(c));});
-    var ab=document.createElement('button');ab.className='addbtn'+(em?' v':'');ab.textContent='+ agregar tarjeta';
+    var ab=document.createElement('button');ab.className='addbtn'+(emode?' v':'');ab.textContent='+ agregar tarjeta';
     (function(ci){ab.onclick=function(){oe(null,ci);};})(ci);
     div.appendChild(ab);b.appendChild(div);
   });
-  document.getElementById('tc').textContent=cards.length;
   document.getElementById('dc').textContent=cards.filter(function(c){return c.st==='done';}).length;
 }
 function mk(c){
-  var hid=vis(c)?'':' hid',e=em?' em':'';
+  var hid=vis(c)?'':' hid',e=emode?' em':'';
   if(c.type==='hito'){
     var d=document.createElement('div');d.className='hcard'+hid+e;
-    d.innerHTML='<div class="hl">'+c.tag+' · '+c.sem+'</div><div class="ht">'+c.title+'</div><div class="hn">'+c.body+'</div>';
-    if(em)(function(id){d.onclick=function(){oe(id);};})(c.id);return d;
+    d.innerHTML='<div class="hl">'+c.tag+' \u00b7 '+c.sem+'</div><div class="ht">'+c.title+'</div><div class="hn">'+c.body+'</div>';
+    if(emode)(function(id){d.onclick=function(){oe(id);};})(c.id);return d;
   }
   var d=document.createElement('div');d.className='card'+hid+e;
   d.innerHTML='<div class="ctag t'+c.type+'">'+c.tag+'</div>'
@@ -209,13 +544,13 @@ function mk(c){
     +'<div class="cbod">'+c.body+'</div>'
     +(c.del?'<div class="cdel">'+c.del+'</div>':'')
     +'<div class="cft"><div class="csem">'+c.sem+'</div><div class="cow">'+c.own+'</div></div>';
-  if(em)(function(id){d.onclick=function(){oe(id);};})(c.id);return d;
+  if(emode)(function(id){d.onclick=function(){oe(id);};})(c.id);return d;
 }
 function trylogin(){
   var u=document.getElementById('iu').value.trim().toLowerCase();
   var p=document.getElementById('ip').value.trim().toLowerCase();
   if(u==='adcom'&&p==='westfield'){
-    auth=true;em=true;uui();clov();render();
+    auth=true;emode=true;uui();clov();render();
   }else{
     var err=document.getElementById('lerr');err.textContent='Credenciales incorrectas.';
     document.getElementById('ip').value='';setTimeout(function(){err.textContent='';},2500);
@@ -223,13 +558,13 @@ function trylogin(){
 }
 function uui(){
   var b=document.getElementById('lkb'),e=document.getElementById('ebtn'),l=document.getElementById('logbtn');
-  if(auth&&em){b.textContent='✓ modo edicion';b.className='lkbadge u';e.textContent='✓ EDITANDO';e.classList.add('on');l.classList.add('v');}
-  else{b.textContent='⊙ solo lectura';b.className='lkbadge';e.textContent='✎ EDITAR';e.classList.remove('on');l.classList.remove('v');}
+  if(auth&&emode){b.textContent='\u2713 modo edici\u00f3n';b.className='lkbadge u';e.textContent='\u2713 EDITANDO';e.classList.add('on');l.classList.add('v');}
+  else{b.textContent='\u2299 solo lectura';b.className='lkbadge';e.textContent='\u270e EDITAR';e.classList.remove('on');l.classList.remove('v');}
 }
-document.getElementById('ebtn').onclick=function(){if(!auth){slm();return;}em=!em;uui();render();};
-document.getElementById('logbtn').onclick=function(){auth=false;em=false;uui();render();};
+document.getElementById('ebtn').onclick=function(){if(!auth){slm();return;}emode=!emode;uui();render();};
+document.getElementById('logbtn').onclick=function(){auth=false;emode=false;uui();render();};
 function slm(){
-  document.getElementById('mhd').textContent='Acceso de edicion';
+  document.getElementById('mhd').textContent='Acceso de edici\u00f3n';
   document.getElementById('msd').textContent='Ingresa tus credenciales para editar el tablero';
   document.getElementById('plogin').style.display='block';document.getElementById('pedit').style.display='none';
   document.getElementById('iu').value='';document.getElementById('ip').value='';
@@ -238,7 +573,7 @@ function slm(){
 function oe(id,dc){
   eid=id;var c=id?cards.filter(function(x){return x.id===id;})[0]:null;
   document.getElementById('mhd').textContent=id?'Editar tarjeta':'Nueva tarjeta';
-  document.getElementById('msd').textContent=id?'Modifica y guarda':'Completa los campos';
+  document.getElementById('msd').textContent=id?'Modifica y guarda los datos':'Completa los campos de la nueva tarjeta';
   document.getElementById('mt').value=c?c.title:'';document.getElementById('mb').value=c?c.body:'';
   document.getElementById('md').value=c?c.del||'':'';document.getElementById('msem').value=c?c.sem:'';
   document.getElementById('mo').value=c?c.own:'';document.getElementById('mst').value=c?c.st:'todo';
@@ -261,12 +596,12 @@ document.getElementById('msav').onclick=function(){
     sem:document.getElementById('msem').value.trim(),own:document.getElementById('mo').value.trim(),
     st:document.getElementById('mst').value,col:col};
   if(eid){var i=cards.findIndex(function(c){return c.id===eid;});if(i>-1)cards[i]=Object.assign({},cards[i],data);}
-  else{cards.push(Object.assign({id:'k'+Date.now(),type:col>=3?'rb':'pem',tag:col>=3?'REBR':'PEM'},data));}
+  else{cards.push(Object.assign({id:'k'+Date.now(),type:col>=3?'rb':'pem',tag:col>=3?'RB':'PEM'},data));}
   save();clov();render();
 };
 document.getElementById('mdel').onclick=function(){
   if(!eid)return;
-  if(confirm('Eliminar esta tarjeta?')){cards=cards.filter(function(c){return c.id!==eid;});save();clov();render();}
+  if(confirm('\u00bfEliminar esta tarjeta?')){cards=cards.filter(function(c){return c.id!==eid;});save();clov();render();}
 };
 document.querySelectorAll('[data-f]').forEach(function(btn){
   btn.onclick=function(){document.querySelectorAll('[data-f]').forEach(function(b){b.classList.remove('on');});this.classList.add('on');af=this.dataset.f;render();};
